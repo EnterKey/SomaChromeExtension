@@ -1,0 +1,16 @@
+{
+  "name": "Visit Site URL History",
+  "version": "1.0",
+  "description": "Reads your history, and shows Visit Site Info.",
+  "browser_action": {
+    "default_popup": "./views/visitedUrls.html",
+    "default_icon": "./resources/img/clock.png"
+  },
+  "permissions": [
+    "tabs", "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["/resources/lib/jquery/jquery-1.9.1.js","/resources/javascript/background.js"]
+  },
+  "manifest_version": 2
+}
