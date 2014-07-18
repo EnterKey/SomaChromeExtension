@@ -61,13 +61,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 			var url = tab.url, title = tab.title;
 			var userKey = 'test@gmail.com'; 
 			
-			// var visitedPageInfo = {};
-			// visitedPageInfo.visitedCnt = 1;
-			// visitedPageInfo.url = 'http://www.naver.com';
-			// visitedPageInfo.title = 'naver';
-			// visitedPageInfo.date = new Date();
-			// chromeExtension.setVisitPageInfo(userKey, visitedPageInfo);
-			
 			chromeExtension.getVisitPageInfos(userKey);
 		});
 	}
