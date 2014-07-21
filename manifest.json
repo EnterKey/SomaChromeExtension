@@ -7,10 +7,7 @@
     "default_icon": "./resources/img/clock.png"
   },
   "permissions": [
-    "tabs", "<all_urls>"
+    "tabs"
   ],
-  "background": {
-    "scripts": ["/resources/lib/jquery/jquery-1.9.1.js","/resources/javascript/background.js"]
-  },
   "manifest_version": 2
 }
