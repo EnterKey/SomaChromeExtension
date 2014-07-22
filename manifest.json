@@ -7,7 +7,7 @@
     "default_icon": "./resources/img/clock.png"
   },
   "permissions": [
-    "tabs"
+    "tabs", "activeTab", "<all_urls>", "http://*/*", "https://*/*"
   ],
   "manifest_version": 2
 }

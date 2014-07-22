@@ -7,44 +7,80 @@ visitPage.buildVisitedSiteList = function () {
 		active : true,
 		lastFocusedWindow : true
 	}, function(tabs) {
-		var tab = tabs[0];
-		/*
-		 	tab info : 
-		 	
-		 	active: true
-			favIconUrl: "http://www.naver.com/favicon.ico?1"
-			height: 779
-			highlighted: true
-			id: 661
-			incognito: false
-			index: 0
-			pinned: false
-			selected: true
-			status: "complete"
-			title: "NAVER"
-			url: "http://www.naver.com/"
-			width: 720
-			windowId: 653
-			*
-		 */
-		
-		var url = tab.url, 
-			title = tab.title,
+		var tab 			= tabs[0],
+			url 			= tab.url, 
+			title 			= tab.title,
+			code 			= null,
 			visitedPageInfo = JSON.parse(window.localStorage.getItem(url));
 			
-		if (visitedPageInfo != null) {
-			visitedPageInfo.visitedCnt += 1;
+		if (visitedPageInfo == null) {
+			visitedPageInfo				= {};
+			visitedPageInfo.url 		= url;
+			visitedPageInfo.title 		= title;
+			visitedPageInfo.date 		= new Date();
+			visitedPageInfo.visitedCnt	= 1;
 		} else {
-			visitedPageInfo = {};
-			visitedPageInfo.url = url;
-			visitedPageInfo.title = title;
-			visitedPageInfo.date = new Date();
-			visitedPageInfo.visitedCnt = 1;
+			visitedPageInfo.visitedCnt += 1;
 		}
+		
+		var visitPageType = visitPage.getVisitPageType();
+		
+		if((url.indexOf("https://www.facebook.com") != -1) && (url.indexOf('/posts/') != -1 || url.indexOf('/permalink/') != -1)) {
+			// facebook 인 경우, facebook은 userContent
+			code = 'var userContent = document.getElementsByClassName("userContent");' +
+				   'userContent = userContent[0].innerHTML' + 
+		           '({' +
+		           '    title: document.title,' +
+		           '    description: userContent || ""' +
+		           '});';
+		} else {
+			// facebook 이 아닌 경우	
+			// var meta = $('meta[name=description]').attr('content');
+			code = 'var meta = document.querySelector("meta[name=\'description\']");' + 
+		           'if (meta) meta = meta.getAttribute("content");' +
+		           '({' +
+		           '    title: document.title,' +
+		           '    description: meta || ""' +
+		           '});';
+		}
+		
+		chrome.tabs.executeScript({
+		    code: code
+		}, function(results) {
+		    if (!results) {
+		        // An error occurred at executing the script. You've probably not got the permission to execute a content script for the current tab
+		        return;
+		    }
+		    var result 			= {};
+		    result.title 		= results[0].title;
+		    result.description 	= results[0].description;
+		    // Now, do something with result.title and result.description
+		    
+		    console.log(result);
+		    console.dir(results);
+			console.log('title : ' + result.title);
+			console.log('description : ' + result.description);			    
+		});
+		
 		
 		window.localStorage.setItem(visitedPageInfo.url, JSON.stringify(visitedPageInfo));
 		visitPage.buildPopupDom();
 	});
+	
+};
+
+visitPage.getVisitPageInfo = function() {
+	
+};
+
+visitPage.getVisitPageType = function() {
+	if((url.indexOf("https://www.facebook.com") != -1) && (url.indexOf('/posts/') != -1 || url.indexOf('/permalink/') != -1)) {
+		return 'facebook';
+	} else if(url.indexOf("https://www.facebook.com") != -1) {
+		return 'error';
+	} else {
+		return 'etc';
+	}
 };
 
 visitPage.buildPopupDom = function () {
