@@ -1,18 +1,14 @@
 {
-	"name": "Scrap Visit Site Info",
+	"name": "My Extension",
+	"description": "Enterkey Test Extension",
 	"version": "1.0",
-	"description": "Reads your history, and shows Visit Site Info.",
-	"browser_action": {
-		"default_popup": "./views/visitedUrls.html",
-		"default_icon": "./resources/img/clock.png"
-	},
-	"permissions": ["contextMenus", "tabs", "activeTab", "http://*/*", "https://*/*"],
+	"permissions": ["contextMenus", "tabs", "http://*/*", "https://*/*", "<all_urls>"],
 	"background": {
 		"scripts": ["/resources/javascript/background.js"]
 	},
 	"content_scripts": [
 		{
-			"matches": ["http://*/*"],
+			"matches": ["http://*/*", "https://*/*"],
 			"css": ["/resources/stylesheets/core.css"],
 			"js": ["/resources/javascript/core.js", "/resources/lib/jquery/jquery-1.9.1.js"],
 			"run_at": "document_end",

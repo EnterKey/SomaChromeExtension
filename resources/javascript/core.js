@@ -6,17 +6,26 @@ var prevDOM = null;
 
 // Mouse listener for any move event on the current document.
 document.addEventListener('mousemove', function(e) {
-	var srcElement = e.srcElement;
-	// console.dir(srcElement);
-	
-	var url = document.URL;
+	var srcElement 	= e.srcElement,
+		url 		= document.URL;
+		
 	if(url.indexOf("https://www.facebook.com") != -1) { // 처음 방문한 페이지 인 경우
 		// facebook 인 경우, facebook은 userContent
 		if((url.indexOf('/posts/') != -1 || url.indexOf('/permalink/') != -1)) {
 			var userContent = document.getElementsByClassName("userContent");
-			userContent = userContent[0].innerHTML;
-			console.log(userContent); 
+			userContent = userContent[0].innerText;
+			console.log(userContent);
+		} else {
+			// var userContent = srcElement.innerText || 'fail';
+			// console.log(userContent);
+			var userContentWrapper = findUpTag(srcElement), 
+				userContent = userContentWrapper.getElementsByClassName('userContent'),
+				innerText = userContent[0].innerText;
+			
+			console.log(innerText);
 		}
+	} else {
+		console.log(srcElement.innerText);
 	}
 	
 	// Lets check if our underlying element is a DIV.
@@ -35,4 +44,13 @@ document.addEventListener('mousemove', function(e) {
 		// during the next iteration.
 		prevDOM = srcElement;
 	}
-}, false); 
+}, false);
+
+function findUpTag(el) {
+    while (el.parentNode) {
+        el = el.parentNode;
+        if (el.className === 'userContentWrapper _5pcr _3ccb')
+            return el;
+    }
+    return null;
+} 
