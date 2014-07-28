@@ -13,16 +13,21 @@ document.addEventListener('mousemove', function(e) {
 		// facebook 인 경우, facebook은 userContent
 		if((url.indexOf('/posts/') != -1 || url.indexOf('/permalink/') != -1)) {
 			var userContent = document.getElementsByClassName("userContent");
-			userContent = userContent[0].innerText;
+			userContent 	= userContent[0].innerText;
+			
 			console.log(userContent);
 		} else {
-			// var userContent = srcElement.innerText || 'fail';
-			// console.log(userContent);
-			var userContentWrapper = findUpTag(srcElement), 
-				userContent = userContentWrapper.getElementsByClassName('userContent'),
-				innerText = userContent[0].innerText;
+			var userContentWrapper = findUpTag(srcElement);
 			
-			console.log(innerText);
+			if(userContentWrapper != null) {
+				var userContent 		= userContentWrapper.getElementsByClassName('userContent'),
+				 	userContentLink 	= userContentWrapper.getElementsByClassName('_5pcq'),
+				 	href 				= userContentLink[0].href, 
+					innerText 			= userContent[0].innerText;
+					
+				console.log(href);
+				console.log(innerText);
+			} 
 		}
 	} else {
 		console.log(srcElement.innerText);
@@ -49,7 +54,7 @@ document.addEventListener('mousemove', function(e) {
 function findUpTag(el) {
     while (el.parentNode) {
         el = el.parentNode;
-        if (el.className === 'userContentWrapper _5pcr _3ccb')
+        if (el.className.indexOf('userContentWrapper') != -1)
             return el;
     }
     return null;
