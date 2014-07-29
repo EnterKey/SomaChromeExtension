@@ -81,39 +81,29 @@ document.addEventListener('mousemove', function(e) {
  
 chrome.extension.onMessage.addListener(function(message, sender, callback) {
 	if (message.functiontoInvoke == "saveScrapInfo") {
-		myAppMainService.showInfo();
+		myAppMainService.saveScrapInfo();
 		
 	} else if (message.functiontoInvoke == "loadScrapInfo") {
-		myAppMainService.showAnotherInfo();
+		myAppMainService.loadScrapInfo();
 	}
 });
 
 myAppMainService.saveScrapInfo = function() {
-	console.log("saveScrapInfo");
 	
-	// var tab 			= tabs[0],
-		// url 			= tab.url, 
-		// title 			= tab.title,
-		// code 			= null,
-		// visitedPageInfo = JSON.parse(window.localStorage.getItem(url));
-// 			
-// 		
-	// if (visitedPageInfo == null) {
-		// console.dir(results);			    
-	    // var result 			= {};
-	    // result.title 		= results[0].title;
-	    // result.description 	= results[0].description;
-// 		
-	    // visitedPageInfo				= {};
-		// visitedPageInfo.url 		= url;
-		// visitedPageInfo.title 		= title;
-		// visitedPageInfo.date 		= new Date();
-		// visitedPageInfo.description = result.description;
-		// visitedPageInfo.visitedCnt	= 1;
-// 		
-		// window.localStorage.setItem(visitedPageInfo.url, JSON.stringify(visitedPageInfo));
-		// visitPage.buildPopupDom();
-	// }	
+	var	url 			= this.scrapInfo.url, 
+		scrapInfo = JSON.parse(window.localStorage.getItem(url));
+		
+	if (scrapInfo == null) {
+	    scrapInfo 			= {};
+	    scrapInfo.url 			= url;
+	    scrapInfo.title 		= this.scrapInfo.title,
+	    scrapInfo.content 		= this.scrapInfo.content,
+		
+		window.localStorage.setItem(scrapInfo.url, JSON.stringify(scrapInfo));
+		// var result = JSON.parse(window.localStorage.getItem(scrapInfo.url));
+		// console.log("saveScrapInfo");
+		// console.dir(result);
+	}	
 };
 
 myAppMainService.loadScrapInfo = function() {
