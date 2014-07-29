@@ -18,5 +18,7 @@ function getClickHandler(info, tab) {
 chrome.contextMenus.create({
 	"title" : "My Extension에 저장",
 	"type" : "normal",
-	"onclick" : getClickHandler()
-});
+	"contexts" : ["all"],
+	"onclick" : getClickHandler
+}, null);
+
