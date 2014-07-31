@@ -5,7 +5,7 @@ if ( typeof (myAppMainService) == typeof (undefined)) {
 myAppMainService = {
 	MOUSE_VISITED_CLASSNAME : 'crx_mouse_visited',
 	prevDOM : null,
-	userKey : 'test@gmail.com',
+	userKey : 'TempUserKey',
 	scrapInfo : {
 		url 	: null,
 		title 	: null,
@@ -106,7 +106,7 @@ myAppMainService.saveScrapInfo = function() {
 	// }	
 	
 	var	url 					 = this.scrapInfo.url; 
-	var scrapInfoSaveRequestURL  = '/ajax/insert_pageEntry'; 
+	var scrapInfoSaveRequestURL  = 'http://localhost:4000/ajax/insert_pageEntry'; 
 	var scrapInfoSaveRequestData = {
 		userKey : null,
 		pageInfo : {
@@ -117,10 +117,10 @@ myAppMainService.saveScrapInfo = function() {
 	};
 	
 	if(url != null) {
-		scrapInfoSaveRequestData.userKey 	= myAppMainService.userKey;
-		scrapInfoSaveRequestData.title 		= myAppMainService.title;
-		scrapInfoSaveRequestData.url 		= myAppMainService.url;
-		scrapInfoSaveRequestData.content 	= myAppMainService.content;
+		scrapInfoSaveRequestData.userKey 			= myAppMainService.userKey;
+		scrapInfoSaveRequestData.pageInfo.title 	= myAppMainService.scrapInfo.title;
+		scrapInfoSaveRequestData.pageInfo.url 		= myAppMainService.scrapInfo.url;
+		scrapInfoSaveRequestData.pageInfo.content 	= myAppMainService.scrapInfo.content;
 		
 		$.post(scrapInfoSaveRequestURL, scrapInfoSaveRequestData, function(result){
 			if (result.status) {
