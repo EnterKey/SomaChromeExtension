@@ -5,7 +5,7 @@ if ( typeof (myAppMainService) == typeof (undefined)) {
 myAppMainService = {
 	MOUSE_VISITED_CLASSNAME : 'crx_mouse_visited',
 	prevDOM : null,
-	
+	userKey : 'test@gmail.com',
 	scrapInfo : {
 		url 	: null,
 		title 	: null,
@@ -90,20 +90,46 @@ chrome.extension.onMessage.addListener(function(message, sender, callback) {
 
 myAppMainService.saveScrapInfo = function() {
 	
-	var	url 			= this.scrapInfo.url, 
-		scrapInfo = JSON.parse(window.localStorage.getItem(url));
-		
-	if (scrapInfo == null) {
-	    scrapInfo 			= {};
-	    scrapInfo.url 			= url;
-	    scrapInfo.title 		= this.scrapInfo.title,
-	    scrapInfo.content 		= this.scrapInfo.content,
-		
-		window.localStorage.setItem(scrapInfo.url, JSON.stringify(scrapInfo));
+	// var	url 			= this.scrapInfo.url, 
+		// scrapInfo = JSON.parse(window.localStorage.getItem(url));
+// 		
+	// if (scrapInfo == null) {
+	    // scrapInfo 			= {};
+	    // scrapInfo.url 			= url;
+	    // scrapInfo.title 		= this.scrapInfo.title,
+	    // scrapInfo.content 		= this.scrapInfo.content,
+// 		
+		// window.localStorage.setItem(scrapInfo.url, JSON.stringify(scrapInfo));
 		// var result = JSON.parse(window.localStorage.getItem(scrapInfo.url));
 		// console.log("saveScrapInfo");
 		// console.dir(result);
-	}	
+	// }	
+	
+	var	url 					 = this.scrapInfo.url; 
+	var scrapInfoSaveRequestURL  = '/ajax/insert_pageEntry'; 
+	var scrapInfoSaveRequestData = {
+		userKey : null,
+		pageInfo : {
+			url : null,
+			title : null,
+			content : null
+		}
+	};
+	
+	if(url != null) {
+		scrapInfoSaveRequestData.userKey 	= myAppMainService.userKey;
+		scrapInfoSaveRequestData.title 		= myAppMainService.title;
+		scrapInfoSaveRequestData.url 		= myAppMainService.url;
+		scrapInfoSaveRequestData.content 	= myAppMainService.content;
+		
+		$.post(scrapInfoSaveRequestURL, scrapInfoSaveRequestData, function(result){
+			if (result.status) {
+				console.log('save success');		
+			} else {
+				console.log('save error');
+			}
+		});
+	}
 };
 
 myAppMainService.loadScrapInfo = function() {
