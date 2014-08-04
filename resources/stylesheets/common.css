@@ -6,3 +6,13 @@ body {
   background-color: #bcd5eb !important;
   outline: 1px solid #5166bb !important;
 }
+
+.selection_bubble {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background:-webkit-gradient(linear, left top, left bottom, from(#2e88c4), to(#075698));
+  width: 200px;
+  height: 130px;
+}

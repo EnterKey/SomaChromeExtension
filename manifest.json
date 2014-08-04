@@ -3,6 +3,10 @@
 	"description": "Enterkey Test Extension",
 	"version": "1.0",
 	"permissions": ["contextMenus", "tabs", "http://*/*", "https://*/*", "<all_urls>"],
+	"browser_action": {
+	  "default_popup": "/views/visitedUrls.html",
+	  "default_icon": "/resources/img/icon16_bw.png"
+	},
 	"background": {
 		"scripts": ["/resources/javascript/background.js"]
 	},
