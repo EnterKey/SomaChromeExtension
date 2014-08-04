@@ -89,32 +89,16 @@ chrome.extension.onMessage.addListener(function(message, sender, callback) {
 });
 
 myAppMainService.saveScrapInfo = function() {
-	
-	// var	url 			= this.scrapInfo.url, 
-		// scrapInfo = JSON.parse(window.localStorage.getItem(url));
-// 		
-	// if (scrapInfo == null) {
-	    // scrapInfo 			= {};
-	    // scrapInfo.url 			= url;
-	    // scrapInfo.title 		= this.scrapInfo.title,
-	    // scrapInfo.content 		= this.scrapInfo.content,
-// 		
-		// window.localStorage.setItem(scrapInfo.url, JSON.stringify(scrapInfo));
-		// var result = JSON.parse(window.localStorage.getItem(scrapInfo.url));
-		// console.log("saveScrapInfo");
-		// console.dir(result);
-	// }	
-	
-	var	url 					 = this.scrapInfo.url; 
-	var scrapInfoSaveRequestURL  = 'http://localhost:4000/ajax/insert_pageEntry'; 
-	var scrapInfoSaveRequestData = {
-		userKey : null,
-		pageInfo : {
-			url : null,
-			title : null,
-			content : null
-		}
-	};
+	var	url 					 = this.scrapInfo.url,
+		scrapInfoSaveRequestURL  = 'http://localhost:4000/ajax/insert_pageEntry',
+		scrapInfoSaveRequestData = {
+			userKey : null,
+			pageInfo : {
+				url : null,
+				title : null,
+				content : null
+			}
+		};
 	
 	if(url != null) {
 		scrapInfoSaveRequestData.userKey 			= myAppMainService.userKey;
