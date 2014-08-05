@@ -107,23 +107,31 @@ myAppMainService.saveScrapInfo = function() {
 		this.showMessage(this.msg);
 	};
 	this.scrapInfoSaveRequestResult.showMessage = function(msg) {
-		var bubbleDOM = $('<div>');
-		bubbleDOM.addClass('selection_bubble');
+	    var bubbleDOM = $('<div>');
+		bubbleDOM.addClass('wrapper_body');
 		$('body').append(bubbleDOM);
 		
-		var bubbleDOMXPosition = document.body.clientWidth * 80 / 100; // 사용자가 보고있는 브라우저 창의 가로
+		var bubbleDOMXPosition = document.body.clientWidth * 75 / 100; // 사용자가 보고있는 브라우저 창의 가로
 		var bubbleDOMYPosition = document.body.clientHeight * 2 / 100; // 사용자가 보고있는 브라우저 창의 세로
 		
 		var temp = document.body.clientWidth - bubbleDOMXPosition;
-		temp = 200 - temp > 0 ? 210 - temp : 0;
+		temp = 300 - temp > 0 ? 330 - temp : 0;
 		bubbleDOMXPosition -= temp;
 		
-		bubbleDOM.html(msg);
+		var content = "<div class='cbm_wrap'>"
+						+ "<span class='vert-flag noise '>★★★ </span>"
+		     			+ "<h1>Sample Box</h1>"
+		     			+ "<img src='http://www.wpthemegenerator.com/wp-content/uploads/2012/06/Image.jpg'>"
+		     			+ "<p>" + msg + "</p>"
+		     			+ "<br />"
+		     			+ "<a href='http://www.enterkey.kr/'>EnterKey.kr </a>"
+					+ "</div>";
+						
+		bubbleDOM.append(content);
 	    bubbleDOM.css('top', bubbleDOMYPosition + 'px');
 	    bubbleDOM.css('left', bubbleDOMXPosition + 'px');
 	    bubbleDOM.css('zIndex', 1000);
 	    bubbleDOM.css('visibility', 'visible');
-	    
 	    
 	    setTimeout(function() {
 	    	bubbleDOM.fadeOut('slow');
