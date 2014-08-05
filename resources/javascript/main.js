@@ -112,7 +112,7 @@ myAppMainService.saveScrapInfo = function() {
 		$('body').append(bubbleDOM);
 		
 		var bubbleDOMXPosition = document.body.clientWidth * 75 / 100; // 사용자가 보고있는 브라우저 창의 가로
-		var bubbleDOMYPosition = document.body.clientHeight * 2 / 100; // 사용자가 보고있는 브라우저 창의 세로
+		var bubbleDOMYPosition = document.body.clientHeight * 2 / 100 + $(document).scrollTop(); // 사용자가 보고있는 브라우저 창의 세로
 		
 		var temp = document.body.clientWidth - bubbleDOMXPosition;
 		temp = 300 - temp > 0 ? 330 - temp : 0;
@@ -124,7 +124,7 @@ myAppMainService.saveScrapInfo = function() {
 		     			+ "<img src='http://www.wpthemegenerator.com/wp-content/uploads/2012/06/Image.jpg'>"
 		     			+ "<p>" + msg + "</p>"
 		     			+ "<br />"
-		     			+ "<a href='http://www.enterkey.kr/'>EnterKey.kr </a>"
+		     			+ "<a href='http://www.enterkey.kr/'>EnterKey.kr</a>"
 					+ "</div>";
 						
 		bubbleDOM.append(content);

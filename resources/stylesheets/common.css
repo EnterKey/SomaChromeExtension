@@ -106,18 +106,20 @@ body {
 
 .cbm_wrap p {
 	margin-top: 15px;
-	text-align: center;
+	text-align: center !important;
 }
 
 .cbm_wrap h1 {
 	font-size: 20px;
 	font-weight: bold;
 	text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+	text-align: center !important;
 }
 
 .cbm_wrap a {
 	text-decoration: none;
 	color: #4A4A4A !important;
+	text-align: center !important;
 }
 
 .cbm_wrap a:hover {
